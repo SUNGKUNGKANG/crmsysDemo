@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sungkang.crmsys.mapper.DepartmentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sungkang.crmsys.domain.Department">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parentId" property="parentid"/>
+        <result column="depPath" property="deppath"/>
+        <result column="enabled" property="enabled"/>
+        <result column="isParent" property="isparent"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, parentId, depPath, enabled, isParent
+    </sql>
+
+    <select id="getAll" resultType="com.sungkang.crmsys.domain.Department">
+        SELECT id, name
+        FROM department;
+    </select>
+
+</mapper>

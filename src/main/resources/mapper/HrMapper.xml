@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sungkang.crmsys.mapper.HrMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sungkang.crmsys.domain.Hr">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="telephone" property="telephone"/>
+        <result column="address" property="address"/>
+        <result column="enabled" property="enabled"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="userface" property="userface"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, phone, telephone, address, enabled, username, password, userface, remark
+    </sql>
+    <select id="selectToLogin" parameterType="com.sungkang.crmsys.domain.Hr" resultType="com.sungkang.crmsys.domain.Hr">
+        SELECT id, name, username, userface, remark
+        FROM crm.hr
+        WHERE username = #{username}
+          AND password = #{password};
+    </select>
+
+
+    <update id="updateRemark" parameterType="com.sungkang.crmsys.domain.Hr">
+        UPDATE crm.hr
+        SET remark = #{remark}
+        WHERE username = #{username}
+          AND password = #{password};
+    </update>
+
+
+</mapper>
