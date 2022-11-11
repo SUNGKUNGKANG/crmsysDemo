@@ -25,9 +25,14 @@ public class HrServiceImpl extends ServiceImpl<HrMapper, Hr> implements HrServic
         hr.setPassword(pwd);
 
         Hr getHr = hrMapper.selectToLogin(hr);
-        String token = UUID.randomUUID().toString();
-        getHr.setRemark(token);
-        getHr.setPassword("");
+        if (getHr!=null) {
+            //生成随机 token
+            String token = UUID.randomUUID().toString();
+            //持久化新的 token
+            getHr.setRemark(token);
+            //接口要求不返回密码
+            getHr.setPassword("");
+        }
 
         return getHr;
     }

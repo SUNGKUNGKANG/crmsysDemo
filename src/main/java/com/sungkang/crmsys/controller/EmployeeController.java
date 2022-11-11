@@ -25,6 +25,8 @@ public class EmployeeController {
         return new R("0", "success", data, count);
     }
 
+    //假分页-实际为取出全部数据，根据页面取集合索引范围。
+    //TODO:完成分页，返回条件查询总条数和页面内容
     @GetMapping("/conditions")
     public R getByPageAndConditions(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit,
                                     @RequestParam("name") String name, @RequestParam("idCard") String idCard,
@@ -54,6 +56,8 @@ public class EmployeeController {
         }
     }
 
+    //真删除-从数据库中完全删除信息
+    //TODO:假删除，员工表增加delete字段，删除操作不做删除而是修改delete字段
     @DeleteMapping
     public R deleteByIds(@RequestBody String ids) {
         List<String> idList = JSON.parseArray(JSON.parseObject(ids).getString("ids"), String.class);
