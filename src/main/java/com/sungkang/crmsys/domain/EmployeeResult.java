@@ -11,6 +11,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeResult {
+    //数据条数
+    private Integer count;
+
     private Integer id;
     private String name;
     private String gender;

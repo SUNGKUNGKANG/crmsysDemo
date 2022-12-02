@@ -9,6 +9,7 @@ import com.sungkang.crmsys.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -32,19 +33,10 @@ public class EmployeeController {
                                     @RequestParam("name") String name, @RequestParam("idCard") String idCard,
                                     @RequestParam("department") String departmentName,
                                     @RequestParam("begindate") String beginDate) {
-        int firstIndex = (page - 1) * limit;
-        int lastIndex = firstIndex + limit;
 
-        List<EmployeeResult> results = service.getByPageAndConditions(name, idCard, departmentName, beginDate);
+        HashMap<String, Object> result = service.getByPageAndConditions(page, limit, name, idCard, departmentName, beginDate);
 
-        if (firstIndex > results.size()) {
-            firstIndex = results.size() / limit * limit;
-        }
-        if (lastIndex > results.size()) {
-            lastIndex = results.size();
-        }
-
-        return new R("0", "success", results.subList(firstIndex, lastIndex), String.valueOf(results.size()));
+        return new R("0", "success", result.get("resultList"), (String) result.get("resultCount"));
     }
 
     @PatchMapping

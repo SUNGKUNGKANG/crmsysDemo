@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -20,17 +21,22 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public List<EmployeeResult> getByPage(Integer pageNo, Integer pageSize) {
         Integer firstIndex = (pageNo - 1) * pageSize;
-        /*Integer lastIndex = firstIndex + pageSize;*/
 
         return employeeMapper.getByPage(firstIndex, pageSize);
     }
 
     @Override
-    public List<EmployeeResult> getByPageAndConditions(
+    public HashMap<String, Object> getByPageAndConditions(
+            int page, int pageSize,
             String name, String idCard,
             String departmentName, String beginDate) {
 
-        return employeeMapper.getByConditions(name, idCard, departmentName, beginDate);
+        HashMap<String, Object> resultMap = new HashMap<>();
+
+        resultMap.put("resultList", employeeMapper.getByConditions(page, pageSize, name, idCard, departmentName, beginDate));
+        resultMap.put("resultCount", employeeMapper.getByConditionsCount(name, idCard, departmentName, beginDate));
+
+        return resultMap;
     }
 
     @Override
