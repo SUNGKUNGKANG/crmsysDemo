@@ -20,20 +20,20 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
     @Override
     public List<EmployeeResult> getByPage(Integer pageNo, Integer pageSize) {
-        Integer firstIndex = (pageNo - 1) * pageSize;
 
-        return employeeMapper.getByPage(firstIndex, pageSize);
+        return employeeMapper.getByPage(getFirstIndex(pageNo, pageSize), pageSize);
     }
 
     @Override
     public HashMap<String, Object> getByPageAndConditions(
-            int page, int pageSize,
+            int pageNo, int pageSize,
             String name, String idCard,
             String departmentName, String beginDate) {
 
         HashMap<String, Object> resultMap = new HashMap<>();
 
-        resultMap.put("resultList", employeeMapper.getByConditions(page, pageSize, name, idCard, departmentName, beginDate));
+        resultMap.put("resultList", employeeMapper.getByConditions(getFirstIndex(pageNo, pageSize), pageSize,
+                name, idCard, departmentName, beginDate));
         resultMap.put("resultCount", employeeMapper.getByConditionsCount(name, idCard, departmentName, beginDate));
 
         return resultMap;
@@ -53,6 +53,10 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public boolean deleteByIds(List<String> ids) {
         return employeeMapper.deleteByIds(ids);
+    }
+
+    private static int getFirstIndex(int page, int pageSize) {
+        return (page - 1) * pageSize;
     }
 
 }

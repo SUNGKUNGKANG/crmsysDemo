@@ -19,22 +19,26 @@ public class EmployeeController {
     @Autowired
     private EmployeeService service;
 
+    /**
+     * 根据页面查询所有员工数据
+     * */
     @GetMapping
-    public R getByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
-        List<EmployeeResult> data = service.getByPage(page, limit);
+    public R getByPage(@RequestParam("pageNO") Integer pageNo, @RequestParam("limit") Integer pageSize) {
+        List<EmployeeResult> data = service.getByPage(pageNo, pageSize);
         String count = String.valueOf(service.count());
         return new R("0", "success", data, count);
     }
 
-    //假分页-实际为取出全部数据，根据页面取集合索引范围。
-    //TODO:完成分页，返回条件查询总条数和页面内容
+    /**
+     * 根据页面、员工条件查询符合条件的员工
+     * */
     @GetMapping("/conditions")
-    public R getByPageAndConditions(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit,
+    public R getByPageAndConditions(@RequestParam("pageNo") Integer pageNo, @RequestParam("limit") Integer pageSize,
                                     @RequestParam("name") String name, @RequestParam("idCard") String idCard,
                                     @RequestParam("department") String departmentName,
                                     @RequestParam("begindate") String beginDate) {
 
-        HashMap<String, Object> result = service.getByPageAndConditions(page, limit, name, idCard, departmentName, beginDate);
+        HashMap<String, Object> result = service.getByPageAndConditions(pageNo, pageSize, name, idCard, departmentName, beginDate);
 
         return new R("0", "success", result.get("resultList"), (String) result.get("resultCount"));
     }

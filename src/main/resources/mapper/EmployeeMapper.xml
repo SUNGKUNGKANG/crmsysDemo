@@ -93,7 +93,7 @@
                 AND E.beginDate = #{begindate}
             </if>
         </where>
-        LIMIT page, pageSize
+        LIMIT ${firstIndex}, ${pageSize};
     </select>
 
     <select id="getByConditionsCount" resultType="java.lang.String">

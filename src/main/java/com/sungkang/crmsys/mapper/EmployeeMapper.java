@@ -12,10 +12,10 @@ import java.util.List;
 @Mapper
 public interface EmployeeMapper extends BaseMapper<Employee> {
 
-    public List<EmployeeResult> getByPage(@Param("firstIndex") Integer firstIndex, @Param("lastIndex") Integer lastIndex);
+    public List<EmployeeResult> getByPage(@Param("firstIndex") Integer firstIndex, @Param("lastIndex") Integer pageSize);
 
     public List<EmployeeResult> getByConditions(
-            @Param("page") Integer page, @Param("pageSize") Integer pageSize,
+            @Param("firstIndex") Integer firstIndex, @Param("pageSize") Integer pageSize,
             @Param("name") String name, @Param("idcard") String idCard,
             @Param("department") String department,
             @Param("begindate") String beginDate);
@@ -25,6 +25,6 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
     public boolean deleteByIds(@Param("ids") List<String> ids);
 
     public String getByConditionsCount(@Param("name") String name, @Param("idcard") String idCard,
-                                    @Param("department") String department,
-                                    @Param("begindate") String beginDate);
+                                       @Param("department") String department,
+                                       @Param("begindate") String beginDate);
 }

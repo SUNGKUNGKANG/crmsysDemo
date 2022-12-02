@@ -13,7 +13,7 @@ public interface EmployeeService extends IService<Employee> {
     public List<EmployeeResult> getByPage(Integer pageNo, Integer pageSize);
 
     public HashMap<String, Object> getByPageAndConditions(
-            int page, int pageSize,
+            int pageNo, int pageSize,
             String name, String idCard,
             String departmentName, String beginDate);
 
